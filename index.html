@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tugas AJAX - 2311102162</title>
+    <style>
+        /* Sedikit styling agar tampilan rapi */
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        #hasil-profil { 
+            margin-top: 20px; 
+            padding: 10px; 
+            border: 1px dashed #333; 
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Tugas Modul AJAX</h2>
+    
+    <button id="btn-tampilkan">Tampilkan Profil</button>
+
+    <div id="hasil-profil">Data akan muncul di sini...</div>
+
+    <script>
+        // Logika AJAX
+        const tombol = document.getElementById('btn-tampilkan');
+        const wadahHasil = document.getElementById('hasil-profil');
+
+        tombol.addEventListener('click', function() {
+            // Mengambil data dari server (data.php) tanpa reload
+            fetch('data.php')
+                .then(response => response.json()) // Konversi response ke JSON
+                .then(data => {
+                    // Tampilkan ke div dengan format: Nama: Budi | Pekerjaan: ...
+                    wadahHasil.innerHTML = `*Nama: ${data.nama} | Pekerjaan: ${data.pekerjaan} | Lokasi: ${data.lokasi}*`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    wadahHasil.innerHTML = "Gagal mengambil data.";
+                });
+        });
+    </script>
+
+</body>
+</html>
